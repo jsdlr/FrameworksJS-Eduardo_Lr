@@ -151,7 +151,6 @@ function checkMatches() {
     }
     //Marcar eresables
     for (var j = 0; j < erasables.length; j++) {
-        var add = ""; 
         columnasPadre[j] = erasables[j].parent();
         erasables[j].addClass("erase");
     }
@@ -206,8 +205,10 @@ function fillErased () {
 
 //Cambiar posiciones Drag&Drop
 function dragndrop() {
-    //Asignar clases a los divs por columnas
-    //Asignar clases a los elementos por columnas
+    //Asignacion de variables
+    var divs = $(".dropCol");
+    var divCount = "";
+    //Asignar propiedades dragndrop
     $( "img" ).draggable();
     $( ".dropCol" ).droppable({
     accept: ".elemento",
@@ -221,15 +222,43 @@ function dragndrop() {
             left: "auto",
             top: "auto"
         }).appendTo($(this))
+        //Nombrar casillas
+        for (var d = 0; d < divs.length; d++) {
+            if (d < 9) {
+                divCount = "div0"+(d+1);        
+            }else{
+                divCount = "div"+(d+1);
+            }
+            divs.eq(d).attr("id", divCount);
+        }
         //This is current dad
         //prevDad is previousDad
-        var removed = $(this).find("img:first-child").detach();
-        removed.appendTo(prevDad).animate("bounce");
-        contador++
-        $("#movimientos-text").text(contador);
-        all();
+        var receiver = this.id.substr(3)
+        var sender= $(prevDad).attr("id").substr(3);
+        
+        if ( 
+            ( parseFloat(sender) == (parseFloat(receiver)-1) )|| 
+            ( parseFloat(sender) == (parseFloat(receiver)+1) )||
+            ( parseFloat(sender) == (parseFloat(receiver)-7) )||
+            ( parseFloat(sender) == (parseFloat(receiver)+7) ) 
+             ){
+            var removed = $(this).find("img:first-child").detach();
+            removed.appendTo(prevDad).animate("bounce");
+            contador++
+            $("#movimientos-text").text(contador);
+            all();
+            //NO HACER MOVIMIENTO
+        }else{
+            var removed = $(this).find("img:last-child").detach();
+            removed.appendTo(prevDad).animate("bounce");
+        }
     }
     });        
+//Remover clases divs
+    for (var f = 0; f < divs.length; f++) {
+     //   divCount = "div"+(f+1);
+        $(".dropCol").attr("id","");
+    }
 }
 
 function all(){
