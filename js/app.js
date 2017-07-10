@@ -117,15 +117,15 @@ function checkMatches() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if( $(first).attr("src") == $(next1C).attr("src") && $(first).attr("src") == $(next2C).attr("src") ){
             //Write erasables
-            if( !($(first).hasClass("done")) ) {
-                erasables[erasables.length] = $(first).parent();  
-            }
-            if( !($(next1C).hasClass("done")) ) {
-                erasables[erasables.length] = $(next1C).parent();
-            }
-            if( !($(next2C).hasClass("done")) ) {
-                erasables[erasables.length] = $(next2C).parent();
-            }
+                if( !($(first).hasClass("done")) ) {
+                    erasables[erasables.length] = $(first).parent();  
+                }
+                if( !($(next1C).hasClass("done")) ) {
+                    erasables[erasables.length] = $(next1C).parent();
+                }
+                if( !($(next2C).hasClass("done")) ) {
+                    erasables[erasables.length] = $(next2C).parent();
+                }
             //Write checked classes
             $(first).addClass("done");
             $(next1C).addClass("done");
